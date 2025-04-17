@@ -1,0 +1,29 @@
+import os
+
+def to_do_list(filename, content):
+    
+    if os.path.exists(filename):
+        overwrite = input(f"заметка '{filename}' уже есть. Изменить? (y/n): ")
+        if overwrite.lower() != 'n':
+            append = input("Хотите добавить текст? (y/n): ")
+            if append.lower() == 'y':
+                additional_content = input("Введите текст для добавления: ")
+                try:
+                    with open(filename, 'a', encoding='utf-8') as file:
+                        file.write('\n' + additional_content)
+                    print(f"Текст добавлен: {filename}")
+                except Exception as e:
+                    print(f"Произошла ошибка: {e}")
+            else:
+                print("Заметка не создана.")
+                return
+    else:
+        try:
+            with open(filename, 'w', encoding='utf-8') as file:
+                file.write(content)
+            print(f"Заметка создана: {filename}")
+        except Exception as e:
+            print(f"Ошибка при создании заметки: {e}")
+
+
+to_do_list('файл.txt', 'изменения')
